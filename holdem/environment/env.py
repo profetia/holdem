@@ -11,6 +11,7 @@ from .game import (
 )
 from .card import card_map
 from ..utils import create_random_generator
+from ..models import Agent
 
 
 def convert_action(
@@ -27,7 +28,7 @@ def convert_action(
 class Env:
     def __init__(
         self,
-        agents: Any,
+        agents: List[Agent],
         num_players: int = 2,
         seed: int = 3407,
     ) -> None:
