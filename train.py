@@ -15,7 +15,7 @@ __env_config: Dict[str, Any] = {"num_players": 2, "seed": 3407}
 
 def train(args):
     device = utils.get_device()
-    utils.set_global_seed()
+    utils.set_global_seed(__env_config["seed"])
 
     if args.load_checkpoint_path != "":
         agent = DQNAgent.from_checkpoint(
@@ -74,33 +74,33 @@ if __name__ == "__main__":
         default="",
     )
     parser.add_argument(
-        "--num_episodes",
+        "--num-episodes",
         type=int,
         default=5000,
     )
     parser.add_argument(
-        "--num_eval_games",
+        "--num-eval-games",
         type=int,
         default=2000,
     )
     parser.add_argument(
-        "--evaluate_every",
+        "--evaluate-every",
         type=int,
         default=100,
     )
     parser.add_argument(
-        "--log_dir",
+        "--log-dir",
         type=str,
         default="experiments/limit_holdem_dqn_result/",
     )
 
     parser.add_argument(
-        "--load_checkpoint_path",
+        "--load-checkpoint-path",
         type=str,
         default="",
     )
 
-    parser.add_argument("--save_every", type=int, default=-1)
+    parser.add_argument("--save-every", type=int, default=-1)
 
     args = parser.parse_args()
 
