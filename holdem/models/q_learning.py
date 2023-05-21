@@ -66,8 +66,8 @@ class QLearningAgent(Agent):
             for i in range(len(state["legal_actions"]))
         }
         action = self.step(state)
-        if self.step_count % 100 == 0:
-            self.save(self.q_table_path)
+        # if self.step_count % 100 == 0:
+        #     self.save(self.q_table_path)
         return action, info
     
     def feed(self, ts):
