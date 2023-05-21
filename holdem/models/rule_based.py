@@ -130,6 +130,6 @@ class RuleBasedAgent(Agent):
 
     def calculate_sum(self, cards):
         sample_result = self.thread_pool.starmap(
-            sample_future, [(copy.deepcopy(cards),) for _ in range(1000)]
+            sample_future, [(copy.deepcopy(cards),) for _ in range(self.iter_num)]
         )
-        return sum(sample_result) / 1000
+        return sum(sample_result) / self.iter_num
