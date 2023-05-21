@@ -63,14 +63,15 @@ class Env:
 
     def run(
         self, is_training=False
-    ) -> Tuple[List[List[HoldemGameState | int]], List[float]]:
+    ) -> Tuple[int, List[List[HoldemGameState | int]], List[float]]:
         trajectories: List[List[HoldemGameState | int]] = [
             [] for _ in range(self.game.num_players)
         ]
         state: HoldemGameState
-        player_id: int
-        state, player_id = self.reset()
+        starter_id: int
+        state, starter_id = self.reset()
 
+        player_id: int = starter_id
         trajectories[player_id].append(state)
         while not self.is_over():
             action: int
@@ -96,7 +97,7 @@ class Env:
             trajectories[player_id].append(state)
 
         payoffs = self.game.payoffs()
-        return trajectories, payoffs
+        return starter_id, trajectories, payoffs
 
     def is_over(self) -> bool:
         return self.game.is_over()
