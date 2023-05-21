@@ -7,7 +7,7 @@ import holdem.utils as utils
 from holdem.utils import Logger
 import holdem.environment as holdem_env
 from holdem.environment import Env, num_actions, state_shape
-from holdem.models import DQNAgent, RandomAgent, Agent, RuleBasedAgent
+from holdem.models import DQNAgent, RandomAgent, Agent, RuleBasedAgent, QLearningAgent
 
 
 __env_config: Dict[str, Any] = {"num_players": 2, "seed": 3407}
@@ -30,6 +30,15 @@ def train(args):
             save_path=args.log_dir,
             save_every=args.save_every,
         )
+    # if args.load_checkpoint_path != "":
+    #     agent = QLearningAgent(
+    #         num_actions=num_actions,
+    #         q_table_path=args.load_checkpoint_path,
+    #     )
+    # else:
+    #     agent = QLearningAgent(
+    #         num_actions=num_actions,
+    #     )
 
     agents: List[Agent] = [agent]
     for _ in range(1, __env_config["num_players"]):
@@ -61,9 +70,9 @@ def train(args):
 
     utils.plot_curve(csv_path, fig_path, agent.__class__.__name__)
 
-    save_path = os.path.join(args.log_dir, "model.pth")
-    torch.save(agent, save_path)
-    print("Model saved in", save_path)
+    # save_path = os.path.join(args.log_dir, "model.pth")
+    # torch.save(agent, save_path)
+    # print("Model saved in", save_path)
 
 
 if __name__ == "__main__":

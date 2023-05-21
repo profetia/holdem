@@ -1,15 +1,18 @@
 import numpy as np
 from .agent import Agent
-
+import json
 
 class QLearningAgent(Agent):
-    def __init__(self, num_actions, alpha=0.1, gamma=0.9, epsilon=0.1):
+    def __init__(self, num_actions, alpha=0.1, gamma=0.9, epsilon=0.1, q_table_path=None):
         self.num_actions = num_actions
+        self.q_table_path = q_table_path
         self.q_table = {}
         self.alpha = alpha
         self.gamma = gamma
         self.epsilon = epsilon
         self.step_count = 0
+        if self.q_table_path:
+            self.load(self.q_table_path)
     
     def getQValue(self, state, action):
         state = tuple(state)
@@ -64,7 +67,7 @@ class QLearningAgent(Agent):
         }
         action = self.step(state)
         if self.step_count % 100 == 0:
-            self.save(r"D:\long\SHTU\2023Spring\CS181\project\holdem\experiments\qlearning\q_table.npy")
+            self.save(self.q_table_path)
         return action, info
     
     def feed(self, ts):
@@ -72,7 +75,12 @@ class QLearningAgent(Agent):
         self.update(state, action, next_state, reward)
 
     def save(self, filename):
+        print("save q_table at iteration", self.step_count)
+        print("q_table size", len(self.q_table))
+        if self.step_count == 5000:
+            raise Exception("stop")
         np.save(filename, self.q_table)
     
     def load(self, filename):
+        print("load q_table")
         self.q_table = np.load(filename, allow_pickle=True).item()
