@@ -4,7 +4,7 @@
       "agent": "dqn",
       "name": "DQNAgent",
       "args": {
-        "checkpoint": "examples\\limit_holdem_dqn_test\\checkpoint_dqn.pt"
+        "checkpoint": "experiments\\limit_holdem_dqn\\checkpoint_dqn.pt"
       }
     },
     {
