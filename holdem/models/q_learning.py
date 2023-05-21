@@ -30,6 +30,8 @@ class QLearningAgent(Agent):
         tmp = np.zeros(self.num_actions)
         for action in range(self.num_actions):
             tmp[action] = self.getQValue(state, action)
+        if tmp.max() == 0:
+            return np.random.choice(list(state["legal_actions"].keys()))
         return tmp.argmax()
 
     def step(self, state):
