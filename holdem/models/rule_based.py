@@ -23,9 +23,10 @@ def sample_future(card_indexes: List[int]):
 
 
 class RuleBasedAgent(Agent):
-    def __init__(self, num_actions):
+    def __init__(self, num_actions,iter_num=1000):
         self.num_actions = num_actions
         self.thread_pool = Pool()
+        self.iter_num=iter_num
 
     def step(self, state):
         # state space
