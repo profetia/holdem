@@ -1,14 +1,14 @@
 {
   "agents": [
     {
-      "agent": "rulebased",
-      "name": "RuleBasedAgent",
-      "args": { "num_actions": 4 }
-    },
-    {
       "agent": "random",
       "name": "RandomAgent",
       "args": { "num_actions": 4 }
+    },
+    {
+      "agent": "rulebased",
+      "name": "RuleBasedAgent-iter500",
+      "args": { "num_actions": 4, "iter_num": 500 }
     }
   ],
   "settings": {
