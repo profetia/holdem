@@ -1,11 +1,9 @@
 {
   "agents": [
     {
-      "agent": "dqn",
-      "name": "DQNAgent",
-      "args": {
-        "checkpoint": "examples\\limit_holdem_dqn_test\\checkpoint_dqn.pt"
-      }
+      "agent": "rulebased",
+      "name": "RuleBasedAgent",
+      "args": { "num_actions": 4 }
     },
     {
       "agent": "random",
