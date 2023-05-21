@@ -30,7 +30,7 @@ class QLearningAgent(Agent):
     def computeActionFromQValues(self, state):
         tmp = np.zeros(self.num_actions)
         for action in range(self.num_actions):
-            tmp[action] = self.getQValue(state, action)
+            tmp[action] = self.getQValue(state['obs'], action)
         if tmp.max() == 0:
             return np.random.choice(list(state["legal_actions"].keys()))
         return tmp.argmax()
@@ -40,7 +40,7 @@ class QLearningAgent(Agent):
         action = None
         if not legalActions:
             return None
-        action = self.computeActionFromQValues(state["obs"]) if np.random.rand() > self.epsilon else np.random.choice(list(legalActions.keys()))
+        action = self.computeActionFromQValues(state) if np.random.rand() > self.epsilon else np.random.choice(list(legalActions.keys()))
         return action
     
     def update(self, state, action, nextState, reward):
