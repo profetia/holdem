@@ -1,6 +1,7 @@
 import numpy as np
 from .agent import Agent
 import json
+import itertools
 
 class QLearningAgent(Agent):
     def __init__(self, num_actions, alpha=0.1, gamma=0.9, epsilon=0.1, q_table_path=None):
@@ -86,3 +87,5 @@ class QLearningAgent(Agent):
     def load(self, filename):
         print("load q_table")
         self.q_table = np.load(filename, allow_pickle=True).item()
+        # self.q_table = dict(itertools.islice(self.q_table.items(), 10)) 
+        print("q_table size", len(self.q_table))
