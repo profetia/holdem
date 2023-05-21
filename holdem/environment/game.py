@@ -1,7 +1,8 @@
-from enum import Enum
+from enum import Enum, IntEnum
 import copy
+import os
 from typing import Dict, List, Tuple
-import numpy as np
+import json
 from numpy.random import RandomState
 
 from .compare import compare_hands
@@ -14,7 +15,7 @@ class HoldemPlayerStatus(Enum):
     ALL_IN = 2
 
 
-class HoldemPlayerAction(Enum):
+class HoldemPlayerAction(IntEnum):
     CALL = 0
     RAISE = 1
     FOLD = 2
@@ -229,17 +230,6 @@ class HoldemDealer:
 
     def deal(self) -> Card:
         return self.deck.pop()
-
-
-HoldemGameHistory = Tuple[
-    HoldemRound,
-    int,
-    int,
-    HoldemDealer,
-    List[Card],
-    List[HoldemPlayer],
-    List[int],
-]
 
 
 class HoldemGame:

@@ -10,8 +10,8 @@ from .game import (
     action_lookup,
 )
 from .card import card_map
-from ..utils import create_random_generator
-from ..models import Agent
+from ..utils.random import create_random_generator
+from ..models.agent import Agent
 
 
 def convert_action(
