@@ -39,7 +39,7 @@ def train(args):
 
     with Logger(args.log_dir) as logger:
         for episode in range(args.num_episodes):
-            trajectories, payoffs = env.run(is_training=True)
+            _, trajectories, payoffs = env.run(is_training=True)
 
             trajectories = holdem_env.transform_trajectory(
                 trajectories, payoffs
