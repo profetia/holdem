@@ -9,26 +9,31 @@ from ..environment.game import HoldemGameState
 
 
 class Logger:
-    def __init__(self, log_dir: str, verbose: bool = False) -> None:
+    def __init__(
+        self, log_dir: str, verbose: bool = False, save_history: bool = False
+    ) -> None:
         self.log_dir: str = log_dir
         self.verbose: bool = verbose
+        self.save_history: bool = save_history
 
     def __enter__(self) -> "Logger":
         self.txt_path: str = os.path.join(self.log_dir, "log.txt")
         self.csv_path: str = os.path.join(self.log_dir, "perf.csv")
         self.fig_path: str = os.path.join(self.log_dir, "fig.png")
-        self.json_path: str = os.path.join(self.log_dir, "history.json")
 
         os.makedirs(self.log_dir, exist_ok=True)
 
         self.txt_file: TextIOWrapper = open(self.txt_path, "w")
         self.csv_file: TextIOWrapper = open(self.csv_path, "w")
-        self.json_file: TextIOWrapper = open(self.json_path, "w")
         fieldnames: List[str] = ["episode", "reward"]
         self.writer: csv.DictWriter = csv.DictWriter(
             self.csv_file, fieldnames=fieldnames
         )
         self.writer.writeheader()
+
+        if self.save_history:
+            self.json_path: str = os.path.join(self.log_dir, "history.json")
+            self.json_file: TextIOWrapper = open(self.json_path, "w")
 
         return self
 
@@ -51,6 +56,9 @@ class Logger:
     def log_history(
         self, history: List[List[HoldemGameState | int]], payoffs: List[int]
     ) -> None:
+        if not self.save_history:
+            return
+
         result: List[List[HoldemGameState | int]] = []
         for player_history in history:
             result.append([])
@@ -70,7 +78,7 @@ class Logger:
             self.txt_file.close()
         if self.csv_path is not None:
             self.csv_file.close()
-        if self.json_path is not None:
+        if self.save_history and self.json_path is not None:
             self.json_file.close()
 
         if self.verbose:
