@@ -2,6 +2,7 @@
   "agents": [
     {
       "agent": "dqn",
+      "name": "DQNAgent",
       "args": {
         "num_actions": 4,
         "state_shape": [72],
@@ -11,7 +12,11 @@
         "save_every": 100
       }
     },
-    { "agent": "random", "args": {} }
+    {
+      "agent": "random",
+      "name": "RandomAgent",
+      "args": { "num_actions": 4 }
+    }
   ],
   "settings": {
     "total_rounds": 1000,

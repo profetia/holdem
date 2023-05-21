@@ -14,8 +14,7 @@ def create_dqn_agent(**kargs) -> DQNAgent:
 
 
 def create_random_agent(**kargs) -> RandomAgent:
-    num_actions = kargs.get("num_actions", NUM_ACTIONS)
-    return RandomAgent(num_actions=num_actions, **kargs)
+    return RandomAgent(**kargs)
 
 
 def create_rulebased_agent(**kargs) -> RuleBasedAgent:
