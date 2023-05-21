@@ -7,7 +7,7 @@ import holdem.utils as utils
 from holdem.utils import Logger
 import holdem.environment as holdem_env
 from holdem.environment import Env, num_actions, state_shape
-from holdem.models import DQNAgent, RandomAgent, Agent
+from holdem.models import DQNAgent, RandomAgent, Agent, RuleBasedAgent
 
 
 __env_config: Dict[str, Any] = {"num_players": 2, "seed": 3407}
@@ -33,7 +33,7 @@ def train(args):
 
     agents: List[Agent] = [agent]
     for _ in range(1, __env_config["num_players"]):
-        agents.append(RandomAgent(num_actions=num_actions))
+        agents.append(RuleBasedAgent(num_actions=num_actions))
 
     env = Env(**__env_config, agents=agents)
 
