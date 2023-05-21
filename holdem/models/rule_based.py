@@ -27,51 +27,67 @@ class RuleBasedAgent(Agent):
         for i in range(52):
             cards.append(i) if state["obs"][i] == 1 else None
         num_cards = len(cards)
+        action = -1
         if num_cards == 2:
             #one pair, raise
             if cards[0] % 13 == cards[1] % 13:
-                return 1
+                action = 1
             else:
-                return 0
+                if 0 in state["legal_actions"]:
+                    action = 0
+                else:
+                    action = 1
         if num_cards == 7:
             hand = Hand(cards)
             if hand.level == 1:
-                return 2
+                action = 2
             elif hand.level <= 3:
                 if 3 in state["legal_actions"]:
-                    return 3
+                    action = 3
                 else:
-                    return 2
+                    action = 2
             elif hand.level <= 5:
-                return 0
+                if 0 in state["legal_actions"]:
+                    action = 0
+                else:
+                    action = 1
             elif hand.level <= 7:
-                return 1
+                action = 1
             
         score = self.calculate_sum(cards)
         if num_cards == 5:
             if score < 4:
-                return 2
+                action = 2
             elif score < 15:
                 if 3 in state["legal_actions"]:
-                    return 3
+                    action = 3
                 else:
-                    return 2
+                    action = 2
             elif score < 25:
-                return 0
+                if 0 in state["legal_actions"]:
+                    action = 0
+                else:
+                    action = 1
             else:
-                return 1
+                action = 1
         elif num_cards == 6:
             if score < 3:
-                return 2
+                action = 2
             elif score < 10:
                 if 3 in state["legal_actions"]:
-                    return 3
+                    action = 3
                 else:
-                    return 2
+                    action = 2
             elif score < 20:
-                return 0
+                if 0 in state["legal_actions"]:
+                    action = 0
+                else:
+                    action = 1
             else:
-                return 1
+                action = 1
+        if action == -1:
+            action = np.random.choice(list(state["legal_actions"].keys()))
+        return action
 
             
 
@@ -91,10 +107,10 @@ class RuleBasedAgent(Agent):
 
         return self.step(state), info
     
-    def calculate_sum(cards):
+    def calculate_sum(self,cards):
         weight = [0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512]
         #drow cards until 7 cards
-        remain_cards = [i for i in range(52)] - cards
+        remain_cards = list(set([i for i in range(52)]) - set(cards))
         sum = 0
         for i in range(1000):
             while len(cards) < 7:
