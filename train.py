@@ -70,9 +70,9 @@ def train(args):
 
     utils.plot_curve(csv_path, fig_path, agent.__class__.__name__)
 
-    # save_path = os.path.join(args.log_dir, "model.pth")
-    # torch.save(agent, save_path)
-    # print("Model saved in", save_path)
+    save_path = os.path.join(args.log_dir, "model.pth")
+    torch.save(agent, save_path)
+    print("Model saved in", save_path)
 
 
 if __name__ == "__main__":
