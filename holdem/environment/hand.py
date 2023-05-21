@@ -201,7 +201,7 @@ class Hand:
     def __sort_cards(self) -> None:
         self.__cards.sort(key=lambda card: rank_lookup.index(card[1]))
 
-    def evaluate(self) -> None:
+    def evaluate(self) -> HandCategory:
         self.__sort_cards()
         self.__ranked_cards, self.__product = split_by_rank(self.__cards)
 
@@ -240,6 +240,8 @@ class Hand:
         elif self.__has_high_card():
             self.__category = HandCategory.HIGH_CARD
             self.__best_five = find_high_card(copy.deepcopy(self.__cards))
+
+        return self.__category
 
     def __has_straight_flush(self) -> bool:
         self.__flushed_cards = flush_cards(self.__cards)

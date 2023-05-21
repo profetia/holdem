@@ -88,6 +88,8 @@ card_map: Dict[str, int] = {
     "CK": 51,
 }
 
+index_map: Dict[int, str] = dict(zip(card_map.values(), card_map.keys()))
+
 
 rank_lookup: str = "23456789TJQKA"
 suit_lookup: str = "SCDH"

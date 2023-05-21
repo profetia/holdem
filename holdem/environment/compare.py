@@ -99,16 +99,14 @@ def compare_hands(hands: List[List[str] | None]) -> List[int]:
             for i, _ in enumerate(hands):
                 if hands[i] is not None:
                     hand: Hand = Hand(hands[i])
-                    hand.evaluate()
-                    categories.append(hand.category)
+                    categories.append(hand.evaluate())
                 elif hands[i] is None:
                     categories.append(HandCategory.UNKNOWN)
 
     else:
         for i, _ in enumerate(hands):
             hand: Hand = Hand(hands[i])
-            hand.evaluate()
-            categories.append(hand.category)
+            categories.append(hand.evaluate())
 
     potentials: List[int] = [
         i for i, j in enumerate(categories) if j == max(categories)
