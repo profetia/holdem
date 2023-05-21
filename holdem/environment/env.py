@@ -134,7 +134,7 @@ class Env:
 def evaluate_perf(env: Env, iters: int) -> List[float]:
     payoffs: List[float] = [0 for _ in range(env.num_players)]
     for _ in range(iters):
-        _, earns = env.run(is_training=False)
+        _, _, earns = env.run(is_training=False)
         for i in range(env.num_players):
             payoffs[i] += earns[i] / iters
     return payoffs
