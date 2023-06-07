@@ -1,3 +1,15 @@
+# This code is derived from Berkeley CS188 Pacman Project 6: Reinforcement Learning
+# ------------------
+# Licensing Information:  You are free to use or extend these projects for
+# educational purposes provided that (1) you do not distribute or publish
+# solutions, (2) you retain this notice, and (3) you provide clear
+# attribution to UC Berkeley, including a link to http://ai.berkeley.edu.
+# 
+# Attribution Information: The Pacman AI projects were developed at UC Berkeley.
+# The core projects and autograders were primarily created by John DeNero
+# (denero@cs.berkeley.edu) and Dan Klein (klein@cs.berkeley.edu).
+# Student side autograding was added by Brad Miller, Nick Hay, and
+# Pieter Abbeel (pabbeel@cs.berkeley.edu).
 import numpy as np
 from .agent import Agent
 import json
@@ -51,7 +63,7 @@ class QLearningAgent(Agent):
             return None
         q_value = self.getQValue(state, action)
         next_max_q_value = self.computeValueFromQValues(nextState)
-        update = reward + self.gamma * next_max_q_value - q_value
+        update = reward + self.gamma * next_max_q_value
         self.q_table[(tuple(state), action)] += self.alpha * update
 
 
